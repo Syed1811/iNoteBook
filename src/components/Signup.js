@@ -52,7 +52,6 @@ const Signup = (props) => {
                 type="text"
                 name="name"
                 className="form__input"
-                value={credentials.email}
                 onChange={onChange}
                 placeholder="Name"
                 aria-describedby="emailHelp"

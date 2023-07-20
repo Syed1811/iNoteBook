@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-
-const connectToMongo =  () => {
+const connectToMongo = async () => {
   try {
      mongoose.connect("mongodb://127.0.0.1:27017/inotebook");
     console.log("Connected to MongoDB");

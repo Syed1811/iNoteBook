@@ -30,11 +30,40 @@ const Signup = (props) => {
     } else {
       props.showAlert("Invalid Details", "danger");
     }
+
+
   };
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
+  const [TorF, setTorF] = useState({
+    TorF: false
+  });
+
+  const checkCon = () => {
+    const password = credentials.password;
+    const cpassword = credentials.cpassword;
+
+    // Check if password and confirm password match
+    const passwordsMatch = password === cpassword;
+
+    // Check if the password meets complexity requirements
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const specialSymbolRegex = /[!@#$%^&*()_+{}:;<>,.?~`]/;
+    const numberRegex = /\d/;
+    const isComplexPassword =
+      uppercaseRegex.test(password) &&
+      lowercaseRegex.test(password) &&
+      specialSymbolRegex.test(password) &&
+      numberRegex.test(password);
+
+    // Update the 'TorF' state based on whether passwords match and if password is complex
+    setTorF(passwordsMatch && isComplexPassword);
+  };
+
   return (
     <div>
       <body className="align">
@@ -89,6 +118,7 @@ const Signup = (props) => {
               <input
                 type="password"
                 onChange={onChange}
+                onClick={checkCon}
                 name="password"
                 id="password"
                 className="form__input"
@@ -106,6 +136,7 @@ const Signup = (props) => {
               <input
                 type="password"
                 onChange={onChange}
+                onClick={checkCon}
                 name="cpassword"
                 id="cpassword"
                 className="form__input"
@@ -115,12 +146,12 @@ const Signup = (props) => {
             </div>
 
             <div className="form__field">
-              <input type="submit" value="Sign Up" />
+              <input type="submit" name="submitbtn" disabled={!TorF} value="Sign Up" />
             </div>
           </form>
 
           <p className="text--center">
-            Not a member? <a href="/login">Sign ip now</a>{" "}
+            Already member? <a href="/login">Log-In now</a>{" "}
             <svg className="icon">
               <use href="#icon-arrow-right"></use>
             </svg>
